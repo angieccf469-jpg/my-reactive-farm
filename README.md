@@ -1,16 +1,43 @@
-# React + Vite
+Activida #3
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+En esta actividad hize dos mejoras para mejorar la experiencia del usuario al crear un animal.
 
-Currently, two official plugins are available:
+Mejora.1
+Antes, el formulario permitia intentar enviar aunque faltaran datos.
+Ahora agregue una validación basica que revisa cada campo:
+.Si un campo esta vacio, se marca como error
+.El formulario no se envia mientras existan errores
+.El foco salta directamente al primer campo con error para ayudar al usuario
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+¿Porque mejora la experiencia?
+.Evita errores accidentales
+.El usuario sabe exactamente que debe completar
+.Hace el formulario mas claro y profesional
 
-## React Compiler
+Mejora.2
+Agregue dos comportamientos:
+.1.Desactivar boton si faltan campos 
+disabled={isFormIncomplete || submitting}
+.2.Mostrar estado de carga cuando se envia
+{submitting ? "sunmitting...": "create"}
+Y el boton cambia de estilo para verse apagado
+className={
+    isFormIncomplete || submitting
+    ? "bg-gray-300 cursor-not-allowed"
+    : "bg-blue-500 text-white hover:bg-blue-600"
+}
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+¿Porque mejora la experiencia?
+.Evita que el usuario presione varias veces el boton
+.Deja claro cuando el formulario NO se puede enviar 
+.Evita envios duplicados 
+.Da retroalimentación visual
 
-## Expanding the ESLint configuration
+El formulario ahora es:
+.Seguro
+.Mas claro
+.Mas facil de usar
+.Mas profesional 
+.Evita errores y envios duplicados 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Estas mejoras ayudan a que el usuario entienda en todo momento qué está pasando y qué debe hacer para completar correctamente el formulario.

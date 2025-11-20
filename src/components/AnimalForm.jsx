@@ -18,9 +18,17 @@ export default function AnimalForm({
   },
 }) {
   const [values, setValues] = useState(initialValues);
+  const isFormIncomplete =
+    !values.name.trim() ||
+    !values.type ||
+    !values.age ||
+    !values.weight ||
+    !values.status;
+
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState(null);
+
 
   function validate(v) {
     const e = {};
@@ -60,6 +68,11 @@ export default function AnimalForm({
   async function handleSubmit(e) {
     e.preventDefault();
     setFormMessage(null);
+    // Validación básica: evitar enviar si faltan campos
+    if (!values.name.trim() || !values.type || !values.age || !values.weight || !values.status) {
+      setFormMessage("Por favor completa todos los campos.");
+      return;
+    }
 
     const nextErrors = validate(values);
     setErrors(nextErrors);
@@ -121,11 +134,10 @@ export default function AnimalForm({
           onChange={handleChange}
           aria-invalid={Boolean(errors.name)}
           aria-describedby={errors.name ? "error-name" : undefined}
-          className={`w-full rounded-md border px-3 py-2 text-sm outline-none transition placeholder:text-gray-400 dark:bg-neutral-800 dark:text-gray-100 ${
-            errors.name
+          className={`w-full rounded-md border px-3 py-2 text-sm outline-none transition placeholder:text-gray-400 dark:bg-neutral-800 dark:text-gray-100 ${errors.name
               ? "border-red-400 focus:ring-2 focus:ring-red-500"
               : "border-gray-300 focus:ring-2 focus:ring-green-600 dark:border-neutral-700"
-          }`}
+            }`}
           placeholder="Lola"
         />
         {errors.name && (
@@ -155,11 +167,10 @@ export default function AnimalForm({
           onChange={handleChange}
           aria-invalid={Boolean(errors.type)}
           aria-describedby={errors.type ? "error-type" : undefined}
-          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${
-            errors.type
+          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${errors.type
               ? "border-red-400 focus:ring-2 focus:ring-red-500"
               : "border-gray-300 focus:ring-2 focus:ring-green-600 dark:border-neutral-700"
-          }`}
+            }`}
         >
           <option value="" disabled>
             Select type…
@@ -200,11 +211,10 @@ export default function AnimalForm({
           onChange={handleChange}
           aria-invalid={Boolean(errors.age)}
           aria-describedby={errors.age ? "error-age" : undefined}
-          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${
-            errors.age
+          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${errors.age
               ? "border-red-400 focus:ring-2 focus:ring-red-500"
               : "border-gray-300 focus:ring-2 focus:ring-green-600 dark:border-neutral-700"
-          }`}
+            }`}
           placeholder="3"
         />
         {errors.age && (
@@ -237,11 +247,10 @@ export default function AnimalForm({
           onChange={handleChange}
           aria-invalid={Boolean(errors.weight)}
           aria-describedby={errors.weight ? "error-weight" : undefined}
-          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${
-            errors.weight
+          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${errors.weight
               ? "border-red-400 focus:ring-2 focus:ring-red-500"
               : "border-gray-300 focus:ring-2 focus:ring-green-600 dark:border-neutral-700"
-          }`}
+            }`}
           placeholder="250"
         />
         {errors.weight && (
@@ -271,11 +280,10 @@ export default function AnimalForm({
           onChange={handleChange}
           aria-invalid={Boolean(errors.status)}
           aria-describedby={errors.status ? "error-status" : undefined}
-          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${
-            errors.status
+          className={`w-full rounded-md border px-3 py-2 text-sm outline-none dark:bg-neutral-800 dark:text-gray-100 ${errors.status
               ? "border-red-400 focus:ring-2 focus:ring-red-500"
               : "border-gray-300 focus:ring-2 focus:ring-green-600 dark:border-neutral-700"
-          }`}
+            }`}
         >
           <option value="" disabled>
             Select status…
@@ -314,13 +322,18 @@ export default function AnimalForm({
 
         <button
           type="submit"
-          disabled={submitting}
-          className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 disabled:opacity-60"
+          disabled={isFormIncomplete || submitting}
+          className={`inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium 
+          ${isFormIncomplete || submitting
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-green-600 text-white hover:bg-green-700"
+            }
+  `}
         >
           {submitting && (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
           )}
-          Save animal
+          {submitting ? "Saving..." : "Save animal"}
         </button>
       </div>
     </form>
