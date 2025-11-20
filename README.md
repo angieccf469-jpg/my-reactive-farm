@@ -1,24 +1,43 @@
-  Actividad #2
+Activida #3
 
-En esta actividad agregue un filtro para permitir que los usuarios filtren animales por edad.
-Cree un nuevo estado en el componente Farm.jsx:
-const [ageFilter, setAgeFilter] = useStates("");
-Este estado guarda la edad minima que debe tener el animal para aparecer en la lista.
+En esta actividad hize dos mejoras para mejorar la experiencia del usuario al crear un animal.
 
-Agregue un control nuevo en la interfaz input numerico, el input le permite al usuario escribir una edad minima.
+Mejora.1
+Antes, el formulario permitia intentar enviar aunque faltaran datos.
+Ahora agregue una validación basica que revisa cada campo:
+.Si un campo esta vacio, se marca como error
+.El formulario no se envia mientras existan errores
+.El foco salta directamente al primer campo con error para ayudar al usuario
 
-Modifique la logica de filtrado en filterAnimlas:
-Agregue una condición nueva:
-const byAge =
-ageFilter === "" || Number(a.age) >= Number(ageFilter);
-Y la uni al resto:
-return byType && byStatus && byQuery && byAge;
+¿Porque mejora la experiencia?
+.Evita errores accidentales
+.El usuario sabe exactamente que debe completar
+.Hace el formulario mas claro y profesional
 
-Visualmente que cambio?
-.Aparecio nuevo campo de filtro al lado de los controles anteriores
-.Al escribir una edad, la lista automaticamente muestra solo los animales con esa edad o mas
+Mejora.2
+Agregue dos comportamientos:
+.1.Desactivar boton si faltan campos 
+disabled={isFormIncomplete || submitting}
+.2.Mostrar estado de carga cuando se envia
+{submitting ? "sunmitting...": "create"}
+Y el boton cambia de estilo para verse apagado
+className={
+    isFormIncomplete || submitting
+    ? "bg-gray-300 cursor-not-allowed"
+    : "bg-blue-500 text-white hover:bg-blue-600"
+}
 
-Como afecta al renderizado?
-.El estado ageFilter cambia, react vuelve a ejecutar el filtrado, react vuelve a renderizar solo los animales
-que cumplen la edad minima.
+¿Porque mejora la experiencia?
+.Evita que el usuario presione varias veces el boton
+.Deja claro cuando el formulario NO se puede enviar 
+.Evita envios duplicados 
+.Da retroalimentación visual
 
+El formulario ahora es:
+.Seguro
+.Mas claro
+.Mas facil de usar
+.Mas profesional 
+.Evita errores y envios duplicados 
+
+Estas mejoras ayudan a que el usuario entienda en todo momento qué está pasando y qué debe hacer para completar correctamente el formulario.
