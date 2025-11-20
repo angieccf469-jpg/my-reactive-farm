@@ -1,16 +1,24 @@
-# React + Vite
+Actividad #2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+En esta actividad agregue un filtro para permitir que los usuarios filtren animales por edad.
+Cree un nuevo estado en el componente Farm.jsx:
+const [ageFilter, setAgeFilter] = useStates("");
+Este estado guarda la edad minima que debe tener el animal para aparecer en la lista.
 
-Currently, two official plugins are available:
+Agregue un control nuevo en la interfaz input numerico, el input le permite al usuario escribir una edad minima.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Modifique la logica de filtrado en filterAnimlas:
+Agregue una condición nueva:
+const byAge =
+ageFilter === "" || Number(a.age) >= Number(ageFilter);
+Y la uni al resto:
+return byType && byStatus && byQuery && byAge;
 
-## React Compiler
+Visualmente que cambio?
+.Aparecio nuevo campo de filtro al lado de los controles anteriores
+.Al escribir una edad, la lista automaticamente muestra solo los animales con esa edad o mas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Como afecta al renderizado?
+.El estado ageFilter cambia, react vuelve a ejecutar el filtrado, react vuelve a renderizar solo los animales
+que cumplen la edad minima.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

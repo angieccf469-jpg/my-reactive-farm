@@ -19,6 +19,7 @@ export default function Farm() {
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [query, setQuery] = useState("");
+  const [ageFilter, setAgeFilter] = useState("");
 
   // Error de envío desde el formulario (red / servidor)
   const [submitError, setSubmitError] = useState(null);
@@ -64,15 +65,16 @@ export default function Farm() {
     return animals.filter((a) => {
       const byType = typeFilter === "all" || a.type === typeFilter;
       const byStatus = statusFilter === "all" || a.status === statusFilter;
+      const byAge = ageFilter === "" || String(a.age) === ageFilter;
       const byQuery =
         q.length === 0 ||
         a.name?.toLowerCase().includes(q) ||
         a.type?.toLowerCase().includes(q) ||
         String(a.weight).includes(q) ||
         String(a.age).includes(q);
-      return byType && byStatus && byQuery;
+      return byType && byStatus && byQuery && byAge;
     });
-  }, [animals, typeFilter, statusFilter, query]);
+  }, [animals, typeFilter, statusFilter, query, ageFilter]);
 
   return (
     <Layout title="My Reactive Farm 🐄🌾">
@@ -123,6 +125,15 @@ export default function Farm() {
                   onChange={(e) => setTypeFilter(e.target.value)}
                   className="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-600 dark:border-neutral-700 dark:bg-neutral-800 dark:text-gray-100"
                 >
+                  <label className="sr-only" htmlFor="age-filter">Age</label>
+                  <input
+                    id="age-filter"
+                    type="number"
+                    value={ageFilter}
+                    onChange={(e) => setAgeFilter(e.target.value)}
+                    placeholder="Filter by age"
+                    className="w-32 rounded-md border border-gray-300 px-2 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500"
+                  />
                   {TYPES.map((t) => (
                     <option key={t} value={t}>
                       {t}
