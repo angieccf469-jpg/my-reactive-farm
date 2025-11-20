@@ -1,4 +1,4 @@
-Actividad #2
+  Actividad #2
 
 En esta actividad agregue un filtro para permitir que los usuarios filtren animales por edad.
 Cree un nuevo estado en el componente Farm.jsx:
