@@ -1,16 +1,10 @@
-# React + Vite
+Actividad #1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+En esta actividad cambie el estado loading dentro del archivo Farm.jsx en la linea const [loading, setLoading] = useState(true);, originalmente estaba en true, indicando que la aplicación debia mostrar el componente loader mientras se cargaba los dato del API.
 
-Currently, two official plugins are available:
+Cuando pase loading a false al inicio, no vi cambios porque el useEffect lo activaba otra vez con setloading(true).
+Al desactivar esa linea temporalmente, si pude ver el efecto del cambio.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+.La interfaz ya no mostraba el loader.
+.La app trato de mostrar los animales inmediatamente.
+.Esto demuestra como el estado controla lo que el react renderiza.
